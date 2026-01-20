@@ -5,14 +5,11 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from PIL import Image
 
-# =========================
-# CONFIG
-# =========================
+
 st.set_page_config(page_title="OCT Eye Disease Classification (ViT)", layout="centered")
 IMG_SIZE = 224
 MODEL_PATH = "final_vit_model_16p_811.keras"
 
-# Sesuaikan dengan urutan class saat training
 CLASS_NAMES = ["CNV", "DME", "DRUSEN", "NORMAL"]
 
 THERAPY_RECOMMENDATION = {
@@ -40,7 +37,7 @@ THERAPY_RECOMMENDATION = {
 }
 
 # =========================
-# CUSTOM LAYERS (WAJIB untuk load model ViT kamu)
+# CUSTOM LAYERS UNTUK LOAD MODEL VIT
 # =========================
 class Patches(layers.Layer):
     def __init__(self, patch_size, **kwargs):
@@ -84,7 +81,7 @@ class PatchEncoder(layers.Layer):
 
 
 # =========================
-# LOAD MODEL (CACHE)
+# LOAD MODEL 
 # =========================
 @st.cache_resource
 def load_model():
@@ -126,7 +123,11 @@ uploaded = st.file_uploader("Upload gambar OCT", type=["png", "jpg", "jpeg", "bm
 
 if uploaded is not None:
     pil_img = Image.open(uploaded)
-    st.image(pil_img, caption="Gambar OCT yang diunggah", use_container_width=True)
+    st.image(
+        pil_img,
+        caption="Gambar OCT yang diunggah",
+    width=350  # ubah sesuai selera: 250–400 biasanya ideal
+)
 
     x = preprocess_image(pil_img)
     label, conf = predict_top1(model, x)
