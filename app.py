@@ -8,7 +8,7 @@ from PIL import Image
 
 st.set_page_config(page_title="OCT Eye Disease Classification (ViT)", layout="centered")
 IMG_SIZE = 224
-MODEL_PATH = "final_vit_model_16p_811.keras"
+MODEL_PATH = "final_vittiny_model_16p_811.keras"
 
 CLASS_NAMES = ["CNV", "DME", "DRUSEN", "NORMAL"]
 
@@ -112,10 +112,10 @@ def predict_top1(model, x: np.ndarray):
 # UI
 # =========================
 st.title("Klasifikasi Penyakit Mata OCT dengan ViT")
-st.write("Upload 1 gambar OCT. Sistem akan menampilkan prediksi TOP-1 dan rekomendasi terapi berbasis kelas.")
+st.write("Upload 1 gambar Mata OCT. Sistem akan menampilkan prediksi TOP-1 dan rekomendasi terapi berbasis kelas.")
 st.info("Catatan: Ini sistem pendukung keputusan. Bukan pengganti diagnosis dokter.", icon="ℹ️")
 
-# Load model once
+# Load model 
 with st.spinner("Memuat model..."):
     model = load_model()
 
@@ -125,8 +125,7 @@ if uploaded is not None:
     pil_img = Image.open(uploaded)
     st.image(
         pil_img,
-        caption="Gambar OCT yang diunggah",
-    width=350  
+        caption="Gambar OCT yang diunggah"
 )
 
     x = preprocess_image(pil_img)
