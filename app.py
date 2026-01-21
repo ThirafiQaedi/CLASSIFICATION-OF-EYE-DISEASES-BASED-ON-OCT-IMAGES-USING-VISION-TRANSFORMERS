@@ -126,7 +126,7 @@ if uploaded is not None:
     st.image(
         pil_img,
         caption="Gambar OCT yang diunggah",
-    width=350  # ubah sesuai selera: 250–400 biasanya ideal
+    width=350  
 )
 
     x = preprocess_image(pil_img)
